@@ -1,5 +1,30 @@
 # Developer Guide
 
+## Acknowledgements
+
+{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+
+## Design & implementation
+
+{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
+
+## Product scope
+### Target user profile
+
+{Describe the target user profile}
+
+### Value proposition
+
+{Describe the value proposition: what problem does it solve?}
+
+## User Stories
+
+|Version| As a ... | I want to ... | So that I can ...|
+|--------|----------|---------------|------------------|
+|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
+|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+=======
 ## Table of Contents
 * [Acknowledgements](#acknowledgements)
 * [Design and Implementation](#design--implementation)
@@ -16,11 +41,11 @@
 ## Acknowledgements
 
 1. For the main structure of the program, we have adapted the project structure
-   from the Individual Project of Man Juncheng at [Link](https://github.com/spinoandraptos/ip/tree/master) </li>
+from the Individual Project of Man JunCheng at [Link](https://github.com/spinoandraptos/ip/tree/master) </li>
 2. For JUnit testing, we have adapted the testing codes from the AddressBook level-2
-   codes at [Link](https://github.com/se-edu/addressbook-level2)</li>
-3. For the developer's guide, we have referenced the developer's guide from AddressBook
-   level-3 [Link](https://se-education.org/addressbook-level3/DeveloperGuide.html)
+codes at [Link](https://github.com/se-edu/addressbook-level2)</li>
+3. For the developer's guide, we have reverenced the developer's guide from AddressBook
+level-3 [Link](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
 # Design & implementation
 
@@ -99,18 +124,18 @@ does not matter. While this is a clean and neat parser design, we have decided n
 design as we see a strong need of having a hierarchical command structure for our program.
 
 1. A hierarchical structure introduces logical sequence and flow to the command used,
-   facilitating a quick familiarisation process for users to quickly learn the command syntax.
-   This is in line with our design consideration to minimise learning and familiarisation time
-   for users. This is in addition to the ease of processing and validation of commands.
-   ```short [question]/[answer]/[module]/[difficulty]```, for one, is a command that has a
-   logical sequence to which the details of a question is entered. It is more intuitive to
-   follow a structure instead of entering such details without a fixed order, which can easily
-   lead to confusion.
+facilitating a quick familiarisation process for users to quickly learn the command syntax.
+This is in line with our design consideration to minimise learning and familiarisation time
+for users. This is in addition to the ease of processing and validation of commands.
+```short [question]/[answer]/[module]/[difficulty]```, for one, is a command that has a
+logical sequence to which the details of a question is entered. It is more intuitive to
+follow a structure instead of entering such details without a fixed order, which can easily
+lead to confusion.
 
 
 2. The use of the delimiter `/` also better helps to introduce the concept of hierarchy than the
-   delimiter `--` used in `Unix` commands as `/` can be more easily associated with layering and
-   stacking, which create structures possessing hierarchy.
+delimiter `--` used in `Unix` commands as `/` can be more easily associated with layering and
+stacking, which create structures possessing hierarchy.
 
 ### Parser Command Syntax
 
@@ -151,7 +176,7 @@ The following sequence diagram shows the implementation of `parseCommand`.
 
 `getContentAfterKeyword`
 
-This method acts as a helper method to assist in extracting the payload following an argument
+This method acts as a helper function to assist in extracting the payload following an argument
 in the user input. It is used in the constructing of `Command` objects when command-specific
 information need to be extracted from arguments in the user input.
 
@@ -162,7 +187,7 @@ printing an error message to the CLI.
 
 `extractQuestionDifficulty`
 
-This method acts as a helper method for extracting an `QnDifficulty` enum type from a user
+This method acts as a helper function for extracting an `QnDifficulty` enum type from a user
 text input. This is used for setting question difficulty during the construction of a
 `Question` , or the execution of a `CommandMarkDifficulty`.
 
@@ -174,7 +199,7 @@ exception will be thrown and handled by printing an error message to the CLI.
 
 ### Start Command - Start Quiz
 
-The start quiz feature allows users to start quizzing themselves with customizable characters to define which modules to quiz themselves on alongside whether to randomize the questions or use their pre-defined question order.
+The start quiz feature allows users to start quizzing themselves with customizable characters to define which modules to quiz themselves on alongside whether to randomize the questions or use their pre-defined question order. 
 
 ![](./UML/CommandStart_Sequence.jpg)
 
@@ -183,8 +208,8 @@ The start quiz mechanism is facilitated by CommandStart under package quizhub.co
 `/[quiz mode]`
 1. 2 configurations - `/module` and `/all`
 2.	`/module` must be followed by a category name to retrieve questions from that specific category
-- The method categoriseListByModules from the package `quizhub.questionlist.QuestionList` will be called to retrieve the questions by that are listed within the specified category from the storage list
-- `/all` will not require any input from `/[start details]`
+  - The method categoriseListByModules from the package `quizhub.questionlist.QuestionList` will be called to retrieve the questions by that are listed within the specified category from the storage list
+  - `/all` will not require any input from `/[start details]`
 3.	The method `getAllQns()` from package `quizhub.questionlist.QuestionList` will be called to retrieve all questions from the storage list.
 
 `/[qn mode]`
@@ -203,38 +228,38 @@ Thereafter the quiz is started by calling the method `startQuiz()` in package `q
 
 One of the supported question formats is the Short Answer Question, in which a question
 can be answered with a phrase of a few words, which will be matched to a corresponding answer
-of sufficient similarity.
+of sufficient similarity. 
 
 It is parsed as: `short [question]/[answer]/[module]/[difficulty]`
 1. `[question]` is the question, phrased as asking the user (i.e. What is 2 + 2? )
-2. `[answer]` is the answer or possible answer(s) that the user must
-   input to count as correct. It is case-insensitive. (i.e. 4, four)
+2. `[answer]` is the answer or possible answer(s) that the user must 
+input to count as correct. It is case-insensitive. (i.e. 4, four)
 3. `[module]` is the module that the question belongs in (i.e. CS2113)
 4. `[difficulty]` is the difficulty of the question for sorting later (i.e. Hard)
 
 *Condensed Class Diagram - Does not contain all attributes & methods
 ![](./UML/AddShortCommand.jpg)
 
-Thereafter, the command is returned to the Quizhub component and executed,
-to add a Question object to the corresponding QuestionList object
+Thereafter, the command is returned to the Quizhub component and executed, 
+to add a Question object to the corresponding QuestionList object 
 using the `addToQuestionList` method. This method will analyse the arguments above
 and add the Question to the appropriate list.
 
 ### Find Command  - Look for a matching question
 
 Quizhub supports searching for specific questions, by searching matching keywords
-in the format
+in the format 
 
 `find /[description]` OR `find /[module]`
-i.e. `find /CS2113`, `find /water buffalo`
+i.e. `find /CS2113`, `find /water buffalo` 
 
 This command is passed to the corresponding QuestionList where the `searchList` method
 is called, which will create a new ArrayList of questions that contain the (case-insensitive)
-keyword and subsequently print them.
+keyword and subsequently print them. 
 
 ## Storage Component
 
-The Storage class is a critical component of the QuizHub application, responsible for managing the storage, retrieval, and updating of question data. It represents a hard disk storage system for storing, reading, and updating question data. It interacts with question data in a file specified by the user and integrates with the `QuestionList` class for effective storage and retrieval of questions.
+The Storage class is a critical component of the QuizHub application, responsible for managing the storage, retrieval, and updating of question data. It represents a hard disk storage system for storing, reading, and updating question data. It interacts with question data in a file specified by the user and integrates with the `QuestionList` class for effective storage and retrieval of questions. 
 
 Developers need to be aware of the two main methods for loading and updating data:
 
@@ -243,16 +268,16 @@ Developers need to be aware of the two main methods for loading and updating dat
 
 The details of the data loading and updating process are explained in details below.
 
-### Constructor
+### Constructor 
 
 #### `public Storage(String filePath)`
 
 - **Parameters:**
   - `filePath`: The path to the file where question data is stored and read from.
 
-### Loading data
+### Loading data 
 
-The process of loading data from the storage file specified in the constructor takes places in a few steps. To illustrate the overall flow on loading data, refer to the sequence diagram below.
+The process of loading data from the storage file specified in the constructor takes places in a few steps. To illustrate the overall flow on loading data, refer to the sequence diagram below. 
 
 ![](./UML/Storage.jpg)
 
@@ -263,13 +288,13 @@ In addition to the main `loadData` method, the process involves the following 3 
 - `private void parseQuestionsFromStrings(ArrayList<String> rawQuestions, QuestionList questions)`
 - `public void buildCurrentListFromFile(QuestionList questions)`
 
-The general idea is that when the program is first initiated, the `loadData` method is called from within the `Ui` class, which passes in an empty `QuestionList`. Within the method itself, the helper method `buildCurrentListFromFile()` will take in this empty `QuestionList` object and populate it with `question` objects according to textual information stored within the specified file. This is done by first extracting each question stored line by line into a new `Arraylist<String> rawQuestions`, then calling another helper method `parseQuestionsFromStrings()` to add each question into the `QuestionList` via a third helper method `addQuestionFromFileaddQuestionFromFile`.
+The general idea is that when the program is first initiated, the `loadData` method is called from within the `Ui` class, which passes in an empty `QuestionList`. Within the method itself, the helper method `buildCurrentListFromFile()` will take in this empty `QuestionList` object and populate it with `question` objects according to textual information stored within the specified file. This is done by first extracting each question stored line by line into a new `Arraylist<String> rawQuestions`, then calling another helper method `parseQuestionsFromStrings()` to add each question into the `QuestionList` via a third helper method `addQuestionFromFileaddQuestionFromFile`. 
 
-The process is refactored into these methods to avoid deep nesting of code to achieve clearer logical flow and more readability and easier debugging process.
+The process is refactored into these methods so as to avoid deep nesting of code to achieve clearer logical flow and more readability and easier debugging process. 
 
 ### Updating data
 
-The process of updating data is done in a similar fashion compared to that of loading data, but in the reverse order logically.
+The process of updating data is done in a similar fashion compared to that of loading data, but in the reverse order logically. 
 
 Apart from the main `updateData` method, it involves the use of 2 other helper methods:
 - `private void writeToFile(String filePath, String textToAdd, boolean toAppend)`
@@ -298,7 +323,7 @@ input.
 
 When the program is first initiated, the `displayOpeningMessage()` method is called to display a welcome message while also calling the `loadData()` method of the `dataStorage` to display all the questions stored in the storage file if any.
 
-Afterward, in the main loop of the program execution, the `getUserInput()` method is called at the start of the loop to capture user input as a `String` object, which is then used by the `Parser` and various `Command` classes to parse and execute the appropriate commands. This process is terminated only upon execution of a `CommandExit`.
+Afterwards, in the main loop of the program execution, the `getUserInput()` method is called at the start of the loop to capture user input as a `String` object, which is then used by the `Parser` and various `Command` classes to parse and execute the appropriate commands. This process is terminated only upon execution of a `CommandExit`.
 
 Finally, the `displayClosingMessage()` method is called to display a farewell message while also calling the `updateData()` method of the `dataStorage` to update the data stored in the storage file with the latest ones.
 
@@ -357,27 +382,12 @@ which they could use to take quizzes to ensure their understanding of the topic.
 
 ## Non-Functional Requirements
 
-1. Program should work on any typical OS as long as it has Java 11 installed and configured.
-2. A user with average or above typing speed for regular English text (not program code) in the CLI should not
-   experience any significant delays to their revision as compared to using a GUI program.
+{Give non-functional requirements}
 
 ## Glossary
 
-1. **Typical OS**: Windows, Linux, Unix, macOS.
-2. **CommandType**: The first word input in the CLI, indicates the type of instruction the program should execute.
-   `e.g. start, delete, short`
-3. **Argument**: A parameter word identified by a leading `/`, arguments indicate the start of information
-   to be extracted from a command in addition to the command type.
-4. **Payload**: A sequence of additional information immediately following the command type or arguments, they
-   provide information for executing complex instructions.
-5. **Hierarchical**: Possesses logical sequencing or order, such as in order of decreasing subsets or importance.
+* *glossary item* - Definition
 
 ## Instructions for manual testing
 
-### Launch
-
-1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest `tp_version_1.0.jar` from [here](https://github.com/AY2324S1-CS2113-W12-1/tp/releases/download/Version_1_0/tp_version_1.0.jar).
-3. Copy the file to the folder you want to use as the home folder for your QuizHub.
-4. Open a command terminal, cd into the folder you put the `tp_version_1.0.jar` file in, and use the java -jar
-   `tp_version_1.0.jar` command to run the application and launch the CLI.
+{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
