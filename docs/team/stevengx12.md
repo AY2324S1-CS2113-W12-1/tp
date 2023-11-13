@@ -59,7 +59,7 @@ from all fields of study.
   [#112](https://github.com/AY2324S1-CS2113-W12-1/tp/pull/112)
   * Added `delete` and `find` command:
     - [Delete Question Command](https://github.com/AY2324S1-CS2113-W12-1/tp/blob/master/docs/UserGuide.md#delete-questions-delete)
-    - [Find Question Command](https://github.com/AY2324S1-CS2113-W12-1/tp/blob/master/docs/UserGuide.md#find-questionmodule-find)
+    - [Find Question Command](https://github.com/AY2324S1-CS2113-W12-1/tp/blob/master/docs/UserGuide.md#find-questionanswermodule-find)
 
 ### Developer Guide Contributions:
   [#71](https://github.com/AY2324S1-CS2113-W12-1/tp/pull/71),
